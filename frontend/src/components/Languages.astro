@@ -1,9 +1,11 @@
 ---
 const { languages, label } = Astro.props;
 ---
-<section class="section">
-  <h2>{label}</h2>
-  <ul class="tag-list">
-    {languages.map((lang: any) => <li>{lang.name} — {lang.level}</li>)}
-  </ul>
+<section class="section reveal" id="languages">
+  <div class="container">
+    <h2>{label}</h2>
+    <ul class="tag-list">
+      {languages.map((lang: any) => <li>{lang.name} — {lang.level}</li>)}
+    </ul>
+  </div>
 </section>

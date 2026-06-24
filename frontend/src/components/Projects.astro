@@ -1,22 +1,32 @@
 ---
 const { label, loadingLabel, noReposLabel, loadErrorLabel } = Astro.props;
 ---
-<section class="section">
-  <h2>{label}</h2>
-  <div id="projects-status" class="status">{loadingLabel}</div>
-  <div id="projects-grid" class="projects-grid"></div>
+<section class="section reveal" id="projects">
+  <div class="container">
+    <h2>{label}</h2>
+    <div id="projects-status" class="status">{loadingLabel}</div>
+    <div id="projects-grid" class="projects-grid"></div>
+  </div>
 </section>
 
 <script define:vars={{ noReposLabel, loadErrorLabel }}>
   const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "";
+  const FETCH_TIMEOUT_MS = 8000;
 
   async function loadRepos() {
     const statusEl = document.getElementById("projects-status");
     const gridEl = document.getElementById("projects-grid");
     if (!statusEl || !gridEl) return;
 
+    statusEl.textContent = statusEl.dataset.loadingText || statusEl.textContent;
+    gridEl.innerHTML = "";
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
     try {
-      const res = await fetch(`${apiBase}/api/repos`);
+      const res = await fetch(`${apiBase}/api/repos`, { signal: controller.signal });
+      clearTimeout(timeoutId);
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);
       const repos = await res.json();
 
@@ -33,14 +43,22 @@ const { label, loadingLabel, noReposLabel, loadErrorLabel } = Astro.props;
           <h3>${repo.name}</h3>
           <p>${repo.description ?? ""}</p>
           <div class="project-meta">
-            ${repo.language ? `<span>${repo.language}</span>` : ""}
+            ${repo.language ? `<span><span class="lang-dot"></span>${repo.language}</span>` : ""}
             <span>★ ${repo.stars}</span>
           </div>
         </a>`
         )
         .join("");
     } catch (err) {
-      statusEl.textContent = loadErrorLabel;
+      clearTimeout(timeoutId);
+      statusEl.innerHTML = "";
+      statusEl.append(document.createTextNode(loadErrorLabel + " "));
+      const retryBtn = document.createElement("button");
+      retryBtn.type = "button";
+      retryBtn.className = "retry-btn";
+      retryBtn.textContent = "↻";
+      retryBtn.addEventListener("click", loadRepos);
+      statusEl.append(retryBtn);
       console.error(err);
     }
   }

@@ -1,0 +1,24 @@
+---
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+const { name, labels, currentLocale } = Astro.props;
+const links = [
+  { href: "#experience", text: labels.experience },
+  { href: "#skills", text: labels.skills },
+  { href: "#projects", text: labels.projects },
+  { href: "#contact", text: labels.contact },
+];
+---
+<nav class="nav" id="site-nav">
+  <a class="nav-brand" href="#top">{name}</a>
+  <div class="nav-links">
+    {links.map((link) => (
+      <a href={link.href}>{link.text}</a>
+    ))}
+  </div>
+  <div class="nav-right">
+    <LanguageSwitcher currentLocale={currentLocale} />
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-controls="site-nav" aria-expanded="false">
+      ☰
+    </button>
+  </div>
+</nav>

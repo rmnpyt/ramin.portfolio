@@ -1,10 +1,14 @@
 ---
 const { basics, label, reachOut, orConnect, linkedinLabel } = Astro.props;
 ---
-<section class="section">
-  <h2>{label}</h2>
-  <p>
-    {reachOut} <a href={`mailto:${basics.email}`}>{basics.email}</a>
-    {basics.links.linkedin && <> {orConnect} <a href={basics.links.linkedin} target="_blank" rel="noopener">{linkedinLabel}</a></>}.
-  </p>
+<section class="section reveal" id="contact">
+  <div class="container">
+    <h2>{label}</h2>
+    <div class="contact-card">
+      <p>
+        {reachOut} <a href={`mailto:${basics.email}`}>{basics.email}</a>
+        {basics.links.linkedin && <> {orConnect} <a href={basics.links.linkedin} target="_blank" rel="noopener">{linkedinLabel}</a></>}.
+      </p>
+    </div>
+  </div>
 </section>
