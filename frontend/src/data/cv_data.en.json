@@ -1,0 +1,115 @@
+{
+  "basics": {
+    "name": "Ramin Shirani",
+    "title": "Python Developer",
+    "summary": "Python Software Engineer with 5+ years of experience developing automation, test and measurement, and hardware-integrated software systems. Skilled in data acquisition, device communication, signal processing, and industrial application development, with hands-on experience integrating software with RFID systems, embedded devices, and electronic test equipment. Proven track record of improving performance, automating operational workflows, and delivering reliable solutions for data-intensive and engineering-focused environments.",
+    "location": "Québec, QC, Canada",
+    "email": "solutions@raminshirani.com",
+    "phone": "+1 581-748-8885",
+    "links": {
+      "github": "https://github.com/rmnpyt",
+      "linkedin": "https://www.linkedin.com/in/raminshirani",
+      "website": "https://raminshirani.com"
+    }
+  },
+  "experience": [
+    {
+      "company": "Pasiv Financial",
+      "role": "Python Developer",
+      "location": "Dubai, United Arab Emirates",
+      "startDate": "2024-08",
+      "endDate": "2026-01",
+      "highlights": [
+        "Developed a cross-platform portfolio analysis platform that enabled investors to evaluate and compare investment strategies through automated calculations, interactive visualizations, and data-driven reporting.",
+        "Designed a configurable data synchronization system that automatically detected updates from external market data sources and refreshed calculations, reports, and charts without user intervention, reducing manual analysis effort.",
+        "Reverse engineered a proprietary legacy file format and built a custom parsing solution, enabling historical datasets to be imported and analyzed within the platform instead of remaining locked in unsupported systems.",
+        "Reduced spreadsheet and report generation times by approximately 80% through multithreaded processing, optimized data structures, and batch operations, significantly improving user productivity when working with large datasets.",
+        "Accelerated computationally intensive financial calculations by up to 10x using NumPy vectorization and Numba optimization, enabling faster analysis of large portfolios and historical data.",
+        "Designed and deployed a Dockerized FastAPI service that integrated legacy Windows-based components into a Linux environment through Wine and ctypes, extending the lifespan of critical business logic while simplifying deployment and maintenance."
+      ]
+    },
+    {
+      "company": "Avat Sanat",
+      "role": "Software Developer",
+      "location": "Isfahan, Iran",
+      "startDate": "2022-03",
+      "endDate": "2024-07",
+      "highlights": [
+        "Smart Parking Management Platform: developed a centralized web platform that digitized parking operations by collecting and processing vehicle entry and exit data from RFID-enabled terminals deployed across municipal parking facilities.",
+        "Built backend services to receive and validate transaction data transmitted from GSM-connected field devices, enabling automated tracking of vehicle activity and parking usage.",
+        "Designed reporting and analytics tools that provided operators with visibility into traffic volume, occupancy trends, and revenue generation across multiple parking locations.",
+        "RFID-Based Amusement Park Management & Payment System: developed a centralized RFID-based management platform that replaced paper tickets and manual sales tracking with a fully digital payment and access-control system.",
+        "Designed and implemented a Windows Service that continuously processed transactions from network-connected RFID terminals, allowing operators to track sales and ride usage in real time at both attraction and facility levels.",
+        "Implemented role-based access control (RBAC), enabling administrators and operators to securely access business-critical information according to their responsibilities.",
+        "Optimized system responsiveness through multithreading and concurrent processing techniques, supporting reliable communication with more than 50 RFID-enabled devices in real time."
+      ]
+    },
+    {
+      "company": "DynoPro.ir",
+      "role": "Software Developer",
+      "location": "Isfahan, Iran",
+      "startDate": "2020-01",
+      "endDate": "2022-02",
+      "highlights": [
+        "Developed a desktop test and measurement application for dynamometer systems, allowing operators to monitor and analyze vehicle performance during testing.",
+        "Implemented a serial communication pipeline to continuously acquire and process sensor data from embedded hardware, enabling real-time monitoring of RPM, torque, power, temperature, humidity, and AFR.",
+        "Built live dashboards with gauges and charts, allowing operators to monitor test results instantly without manually interpreting raw data.",
+        "Implemented signal smoothing and filtering algorithms, improving measurement stability and providing more reliable test results.",
+        "Designed a portable data management system that preserved complete customer, vehicle, and test histories while simplifying backup and data transfer."
+      ]
+    },
+    {
+      "company": "Sobhan Institutes",
+      "role": "Python Instructor (Part-Time)",
+      "location": "Isfahan, Iran",
+      "startDate": "2019-04",
+      "endDate": "2021-10",
+      "highlights": [
+        "Developed a practical teaching approach to improve student understanding and engagement.",
+        "Redesigned the curriculum into beginner, advanced, and specialized learning tracks."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Isfahan University of Technology",
+      "degree": "Master of Science in Materials Engineering",
+      "startDate": "2011",
+      "endDate": "2014"
+    },
+    {
+      "institution": "Shahrekord University",
+      "degree": "Bachelor of Science in Materials Engineering",
+      "startDate": "2006",
+      "endDate": "2010"
+    }
+  ],
+  "skills": [
+    { "category": "Software Development & Automation", "items": ["Python", "PyQt", "Multithreading", "Process Automation", "Windows Services"] },
+    { "category": "Data Acquisition & Communications", "items": ["RFID Integration", "TCP/IP", "Serial Port Communication", "Real-Time Data Processing"] },
+    { "category": "Databases", "items": ["PostgreSQL", "MySQL", "SQLite", "SQL"] },
+    { "category": "Data Processing & Performance", "items": ["NumPy", "Pandas", "Numba", "Performance Optimization"] },
+    { "category": "Backend & API Development", "items": ["FastAPI", "Django", "Flask", "Django REST Framework", "REST APIs"] },
+    { "category": "Tools & Environments", "items": ["Docker", "Linux", "Git", "GitHub Actions (CI/CD)", "PyTest", "TDD"] },
+    { "category": "Other", "items": ["Matplotlib", "PyQtGraph", "HTML", "CSS"] }
+  ],
+  "certifications": [
+    { "name": "Introduction to Cloud Computing", "issuer": "IBM", "date": "2025-10" },
+    { "name": "Introduction to Software Engineering", "issuer": "IBM", "date": "2025-09" },
+    { "name": "Building RESTful APIs with Flask", "issuer": "LinkedIn Learning", "date": "" },
+    { "name": "Software Engineering Essentials", "issuer": "LinkedIn Learning", "date": "" }
+  ],
+  "languages": [
+    { "name": "English", "level": "Intermediate" },
+    { "name": "French", "level": "Intermediate" },
+    { "name": "Persian", "level": "Native or Bilingual" }
+  ],
+  "softSkills": [
+    "Teamwork",
+    "Problem Solving",
+    "Fast Learning",
+    "Cross-Functional Collaboration",
+    "Adaptable",
+    "Reliability"
+  ]
+}

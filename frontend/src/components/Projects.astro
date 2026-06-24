@@ -1,0 +1,49 @@
+---
+const { label, loadingLabel, noReposLabel, loadErrorLabel } = Astro.props;
+---
+<section class="section">
+  <h2>{label}</h2>
+  <div id="projects-status" class="status">{loadingLabel}</div>
+  <div id="projects-grid" class="projects-grid"></div>
+</section>
+
+<script define:vars={{ noReposLabel, loadErrorLabel }}>
+  const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "";
+
+  async function loadRepos() {
+    const statusEl = document.getElementById("projects-status");
+    const gridEl = document.getElementById("projects-grid");
+    if (!statusEl || !gridEl) return;
+
+    try {
+      const res = await fetch(`${apiBase}/api/repos`);
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+      const repos = await res.json();
+
+      if (repos.length === 0) {
+        statusEl.textContent = noReposLabel;
+        return;
+      }
+
+      statusEl.remove();
+      gridEl.innerHTML = repos
+        .map(
+          (repo) => `
+        <a class="project-card" href="${repo.url}" target="_blank" rel="noopener">
+          <h3>${repo.name}</h3>
+          <p>${repo.description ?? ""}</p>
+          <div class="project-meta">
+            ${repo.language ? `<span>${repo.language}</span>` : ""}
+            <span>★ ${repo.stars}</span>
+          </div>
+        </a>`
+        )
+        .join("");
+    } catch (err) {
+      statusEl.textContent = loadErrorLabel;
+      console.error(err);
+    }
+  }
+
+  loadRepos();
+</script>

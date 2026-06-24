@@ -1,0 +1,20 @@
+---
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+const { basics, githubLabel, linkedinLabel, websiteLabel, currentLocale } = Astro.props;
+---
+<header class="header">
+  <LanguageSwitcher currentLocale={currentLocale} />
+  <h1>{basics.name}</h1>
+  <p class="title">{basics.title}</p>
+  <p class="summary">{basics.summary}</p>
+  <div class="contact">
+    <span>{basics.location}</span>
+    <span><a href={`mailto:${basics.email}`}>{basics.email}</a></span>
+    {basics.phone && <span>{basics.phone}</span>}
+  </div>
+  <div class="links">
+    {basics.links.github && <a href={basics.links.github} target="_blank" rel="noopener">{githubLabel}</a>}
+    {basics.links.linkedin && <a href={basics.links.linkedin} target="_blank" rel="noopener">{linkedinLabel}</a>}
+    {basics.links.website && <a href={basics.links.website} target="_blank" rel="noopener">{websiteLabel}</a>}
+  </div>
+</header>

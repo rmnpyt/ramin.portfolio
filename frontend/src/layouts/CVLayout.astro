@@ -1,0 +1,59 @@
+---
+import Header from "../components/Header.astro";
+import Experience from "../components/Experience.astro";
+import Education from "../components/Education.astro";
+import Skills from "../components/Skills.astro";
+import Certifications from "../components/Certifications.astro";
+import Languages from "../components/Languages.astro";
+import SoftSkills from "../components/SoftSkills.astro";
+import Projects from "../components/Projects.astro";
+import Contact from "../components/Contact.astro";
+import "../styles/global.css";
+import { dir as dirMap, t, type Locale } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+  cvData: any;
+}
+
+const { locale, cvData } = Astro.props as Props;
+const labels = t(locale);
+const direction = dirMap[locale];
+---
+<html lang={locale} dir={direction}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{cvData.basics.name} — {cvData.basics.title}</title>
+  </head>
+  <body>
+    <main class="container">
+      <Header
+        basics={cvData.basics}
+        githubLabel={labels.github}
+        linkedinLabel={labels.linkedin}
+        websiteLabel={labels.website}
+        currentLocale={locale}
+      />
+      <Experience experience={cvData.experience} label={labels.experience} presentLabel={labels.present} />
+      <Education education={cvData.education} label={labels.education} />
+      <Skills skills={cvData.skills} label={labels.skills} />
+      <Certifications certifications={cvData.certifications} label={labels.certifications} />
+      <Languages languages={cvData.languages} label={labels.languages} />
+      <SoftSkills softSkills={cvData.softSkills} label={labels.softSkills} />
+      <Projects
+        label={labels.projects}
+        loadingLabel={labels.loading}
+        noReposLabel={labels.noRepos}
+        loadErrorLabel={labels.loadError}
+      />
+      <Contact
+        basics={cvData.basics}
+        label={labels.contact}
+        reachOut={labels.reachOut}
+        orConnect={labels.orConnect}
+        linkedinLabel={labels.linkedin}
+      />
+    </main>
+  </body>
+</html>

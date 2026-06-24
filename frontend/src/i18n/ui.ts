@@ -1,0 +1,73 @@
+export type Locale = "en" | "fr" | "fa";
+
+export const locales: Locale[] = ["en", "fr", "fa"];
+
+export const dir: Record<Locale, "ltr" | "rtl"> = {
+  en: "ltr",
+  fr: "ltr",
+  fa: "rtl",
+};
+
+export const ui = {
+  en: {
+    experience: "Experience",
+    education: "Education",
+    skills: "Skills",
+    certifications: "Certifications",
+    languages: "Languages",
+    softSkills: "Soft Skills",
+    projects: "Projects",
+    contact: "Contact",
+    loading: "Loading public repos…",
+    noRepos: "No public repositories found.",
+    loadError: "Could not load projects right now. Please try again later.",
+    reachOut: "Feel free to reach out at",
+    orConnect: "or connect on",
+    github: "GitHub",
+    linkedin: "LinkedIn",
+    website: "Website",
+    present: "Present",
+  },
+  fr: {
+    experience: "Expérience",
+    education: "Formation",
+    skills: "Compétences",
+    certifications: "Certifications",
+    languages: "Langues",
+    softSkills: "Compétences interpersonnelles",
+    projects: "Projets",
+    contact: "Contact",
+    loading: "Chargement des dépôts publics…",
+    noRepos: "Aucun dépôt public trouvé.",
+    loadError: "Impossible de charger les projets pour le moment. Veuillez réessayer plus tard.",
+    reachOut: "N'hésitez pas à me contacter à",
+    orConnect: "ou à me retrouver sur",
+    github: "GitHub",
+    linkedin: "LinkedIn",
+    website: "Site web",
+    present: "Présent",
+  },
+  fa: {
+    experience: "تجربه کاری",
+    education: "تحصیلات",
+    skills: "مهارت‌ها",
+    certifications: "گواهینامه‌ها",
+    languages: "زبان‌ها",
+    softSkills: "مهارت‌های نرم",
+    projects: "پروژه‌ها",
+    contact: "تماس",
+    loading: "در حال بارگذاری مخازن عمومی…",
+    noRepos: "هیچ مخزن عمومی یافت نشد.",
+    loadError: "در حال حاضر امکان بارگذاری پروژه‌ها نیست. لطفاً بعداً دوباره تلاش کنید.",
+    reachOut: "برای ارتباط می‌توانید از طریق ایمیل زیر اقدام کنید",
+    orConnect: "یا از طریق",
+    github: "گیت‌هاب",
+    linkedin: "لینکدین",
+    website: "وب‌سایت",
+    present: "اکنون",
+  },
+} as const;
+
+export function t(locale: Locale) {
+  return ui[locale];
+}

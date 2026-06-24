@@ -1,0 +1,19 @@
+---
+const { currentLocale } = Astro.props;
+const options = [
+  { code: "en", label: "EN", href: "/" },
+  { code: "fr", label: "FR", href: "/fr/" },
+  { code: "fa", label: "FA", href: "/fa/" },
+];
+---
+<nav class="lang-switcher">
+  {options.map((opt) => (
+    <a
+      href={opt.href}
+      class={opt.code === currentLocale ? "active" : ""}
+      aria-current={opt.code === currentLocale ? "page" : undefined}
+    >
+      {opt.label}
+    </a>
+  ))}
+</nav>
