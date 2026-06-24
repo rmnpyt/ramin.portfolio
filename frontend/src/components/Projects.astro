@@ -1,5 +1,6 @@
 ---
 const { label, loadingLabel, noReposLabel, loadErrorLabel } = Astro.props;
+const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "";
 ---
 <section class="section reveal" id="projects">
   <div class="container">
@@ -9,8 +10,7 @@ const { label, loadingLabel, noReposLabel, loadErrorLabel } = Astro.props;
   </div>
 </section>
 
-<script define:vars={{ noReposLabel, loadErrorLabel }}>
-  const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "";
+<script define:vars={{ apiBase, noReposLabel, loadErrorLabel }}>
   const FETCH_TIMEOUT_MS = 8000;
 
   async function loadRepos() {
