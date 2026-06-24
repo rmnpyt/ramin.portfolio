@@ -111,14 +111,14 @@
 }
 
 :root[data-theme="oceanSunset"] {
-  /* https://coolors.co/8ecae6-219ebc-023047-ffb703-fb8500 */
-  --bg: #023047;
-  --surface: color-mix(in srgb, #023047 80%, #219ebc 20%);
-  --surface-2: color-mix(in srgb, #023047 65%, #219ebc 35%);
-  --border: color-mix(in srgb, #219ebc 50%, white 10%);
-  --text: #eaf6fb;
-  --muted: #8ecae6;
-  --accent: #ffb703;
-  --accent-2: #fb8500;
-  --gradient: linear-gradient(135deg, #023047 0%, #219ebc 40%, #ffb703 75%, #fb8500 100%);
+  /* Refined per user feedback: fewer/clearer blue steps, higher text contrast, yellow reserved for emphasis */
+  --bg: #07293a;
+  --surface: #0b3a4a;
+  --surface-2: #104a60;
+  --border: #2d7089;
+  --text: #f3f7fa;
+  --muted: #b9d4df;
+  --accent: #f5b700;
+  --accent-2: #5fa8c0;
+  --gradient: linear-gradient(135deg, #07293a 0%, #104a60 60%, #2d7089 100%);
 }
