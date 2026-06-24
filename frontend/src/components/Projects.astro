@@ -2,13 +2,11 @@
 const { label, loadingLabel, noReposLabel, loadErrorLabel } = Astro.props;
 const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "";
 ---
-<section class="section reveal" id="projects">
-  <div class="container">
-    <h2>{label}</h2>
-    <div id="projects-status" class="status">{loadingLabel}</div>
-    <div id="projects-grid" class="projects-grid"></div>
-  </div>
-</section>
+<div class="panel-block">
+  <h2>{label}</h2>
+  <div id="projects-status" class="status">{loadingLabel}</div>
+  <div id="projects-grid" class="projects-grid"></div>
+</div>
 
 <script define:vars={{ apiBase, noReposLabel, loadErrorLabel }}>
   const FETCH_TIMEOUT_MS = 8000;
@@ -18,7 +16,6 @@ const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "";
     const gridEl = document.getElementById("projects-grid");
     if (!statusEl || !gridEl) return;
 
-    statusEl.textContent = statusEl.dataset.loadingText || statusEl.textContent;
     gridEl.innerHTML = "";
 
     const controller = new AbortController();

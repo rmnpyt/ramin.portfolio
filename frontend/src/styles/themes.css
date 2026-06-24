@@ -1,0 +1,124 @@
+/*
+  Color profiles. Selected at build time via PUBLIC_COLOR_PROFILE in frontend/.env,
+  applied as <html data-theme="..."> by CVLayout.astro.
+  Valid values: tealMagenta (default), navyMist, royalGold, deepSea, slateCream,
+  forestTeal, vividViolet, monoAmber, oceanSunset.
+*/
+
+:root,
+:root[data-theme="tealMagenta"] {
+  /* https://coolors.co/006466-065a60-0b525b-144552-1b3a4b-212f45-272640-312244-3e1f47-4d194d */
+  --bg: #272640;
+  --surface: #312244;
+  --surface-2: #3e1f47;
+  --border: color-mix(in srgb, #1b3a4b 55%, white 10%);
+  --text: #f3eef7;
+  --muted: color-mix(in srgb, #f3eef7 50%, #272640 50%);
+  --accent: color-mix(in srgb, #006466 55%, white 35%);
+  --accent-2: color-mix(in srgb, #4d194d 60%, white 32%);
+  --gradient: linear-gradient(135deg, #006466 0%, #144552 28%, #212f45 52%, #312244 76%, #4d194d 100%);
+}
+
+:root[data-theme="navyMist"] {
+  /* https://coolors.co/0d1b2a-1b263b-415a77-778da9-e0e1dd */
+  --bg: #0d1b2a;
+  --surface: #1b263b;
+  --surface-2: color-mix(in srgb, #1b263b 80%, #415a77 20%);
+  --border: color-mix(in srgb, #415a77 55%, white 8%);
+  --text: #e0e1dd;
+  --muted: #778da9;
+  --accent: color-mix(in srgb, #778da9 70%, white 25%);
+  --accent-2: #e0e1dd;
+  --gradient: linear-gradient(135deg, #0d1b2a 0%, #1b263b 35%, #415a77 70%, #778da9 100%);
+}
+
+:root[data-theme="royalGold"] {
+  /* https://coolors.co/00296b-003f88-00509d-fdc500-ffd500 */
+  --bg: #00296b;
+  --surface: #003f88;
+  --surface-2: #00509d;
+  --border: color-mix(in srgb, #00509d 55%, white 12%);
+  --text: #fdf6e3;
+  --muted: color-mix(in srgb, #fdf6e3 55%, #00296b 45%);
+  --accent: #fdc500;
+  --accent-2: #ffd500;
+  --gradient: linear-gradient(135deg, #00296b 0%, #003f88 35%, #00509d 70%, #fdc500 100%);
+}
+
+:root[data-theme="deepSea"] {
+  /* https://coolors.co/0b132b-1c2541-3a506b-5bc0be-6fffe9 */
+  --bg: #0b132b;
+  --surface: #1c2541;
+  --surface-2: #3a506b;
+  --border: color-mix(in srgb, #3a506b 55%, white 10%);
+  --text: #eafffb;
+  --muted: color-mix(in srgb, #eafffb 50%, #0b132b 50%);
+  --accent: #5bc0be;
+  --accent-2: #6fffe9;
+  --gradient: linear-gradient(135deg, #0b132b 0%, #1c2541 35%, #3a506b 70%, #5bc0be 100%);
+}
+
+:root[data-theme="slateCream"] {
+  /* https://coolors.co/0d1321-1d2d44-3e5c76-748cab-f0ebd8 */
+  --bg: #0d1321;
+  --surface: #1d2d44;
+  --surface-2: #3e5c76;
+  --border: color-mix(in srgb, #3e5c76 55%, white 10%);
+  --text: #f0ebd8;
+  --muted: color-mix(in srgb, #f0ebd8 50%, #0d1321 50%);
+  --accent: #748cab;
+  --accent-2: #f0ebd8;
+  --gradient: linear-gradient(135deg, #0d1321 0%, #1d2d44 35%, #3e5c76 70%, #748cab 100%);
+}
+
+:root[data-theme="forestTeal"] {
+  /* https://coolors.co/22577a-38a3a5-57cc99-80ed99-c7f9cc */
+  --bg: color-mix(in srgb, #22577a 75%, black 25%);
+  --surface: #22577a;
+  --surface-2: #38a3a5;
+  --border: color-mix(in srgb, #38a3a5 50%, white 10%);
+  --text: #eafff1;
+  --muted: #c7f9cc;
+  --accent: #57cc99;
+  --accent-2: #80ed99;
+  --gradient: linear-gradient(135deg, #22577a 0%, #38a3a5 35%, #57cc99 70%, #80ed99 100%);
+}
+
+:root[data-theme="vividViolet"] {
+  /* https://coolors.co/f72585-7209b7-3a0ca3-4361ee-4cc9f0 */
+  --bg: #3a0ca3;
+  --surface: #7209b7;
+  --surface-2: color-mix(in srgb, #7209b7 80%, black 20%);
+  --border: color-mix(in srgb, #4361ee 50%, white 10%);
+  --text: #f5ecff;
+  --muted: color-mix(in srgb, #f5ecff 55%, #3a0ca3 45%);
+  --accent: #4cc9f0;
+  --accent-2: #f72585;
+  --gradient: linear-gradient(135deg, #3a0ca3 0%, #7209b7 35%, #4361ee 70%, #f72585 100%);
+}
+
+:root[data-theme="monoAmber"] {
+  /* https://coolors.co/000000-14213d-fca311-e5e5e5-ffffff */
+  --bg: #000000;
+  --surface: #14213d;
+  --surface-2: color-mix(in srgb, #14213d 85%, white 15%);
+  --border: color-mix(in srgb, #14213d 60%, white 20%);
+  --text: #ffffff;
+  --muted: #e5e5e5;
+  --accent: #fca311;
+  --accent-2: #ffffff;
+  --gradient: linear-gradient(135deg, #000000 0%, #14213d 50%, #fca311 100%);
+}
+
+:root[data-theme="oceanSunset"] {
+  /* https://coolors.co/8ecae6-219ebc-023047-ffb703-fb8500 */
+  --bg: #023047;
+  --surface: color-mix(in srgb, #023047 80%, #219ebc 20%);
+  --surface-2: color-mix(in srgb, #023047 65%, #219ebc 35%);
+  --border: color-mix(in srgb, #219ebc 50%, white 10%);
+  --text: #eaf6fb;
+  --muted: #8ecae6;
+  --accent: #ffb703;
+  --accent-2: #fb8500;
+  --gradient: linear-gradient(135deg, #023047 0%, #219ebc 40%, #ffb703 75%, #fb8500 100%);
+}

@@ -1,11 +1,9 @@
 ---
 const { softSkills, label } = Astro.props;
 ---
-<section class="section reveal" id="soft-skills">
-  <div class="container">
-    <h2>{label}</h2>
-    <ul class="tag-list">
-      {softSkills.map((skill: string) => <li>{skill}</li>)}
-    </ul>
-  </div>
-</section>
+<div class="panel-block">
+  <h2>{label}</h2>
+  <ul class="tag-list">
+    {softSkills.map((skill: string) => <li>{skill}</li>)}
+  </ul>
+</div>

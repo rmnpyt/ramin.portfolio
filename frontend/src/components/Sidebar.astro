@@ -1,0 +1,70 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+
+const { basics, labels, currentLocale } = Astro.props;
+
+const PHOTO_CANDIDATES = ["profile.jpg", "profile.jpeg", "profile.png", "profile.webp"];
+const publicDir = path.join(process.cwd(), "public");
+const photoFile = PHOTO_CANDIDATES.find((name) => fs.existsSync(path.join(publicDir, name)));
+const photoUrl = photoFile ? `/${photoFile}` : null;
+
+const initials = basics.name
+  .split(" ")
+  .map((part: string) => part[0])
+  .slice(0, 2)
+  .join("")
+  .toUpperCase();
+---
+<aside class="sidebar">
+  {photoUrl ? (
+    <div class="avatar-photo">
+      <img src={photoUrl} alt={basics.name} />
+    </div>
+  ) : (
+    <div class="avatar-photo initials">{initials}</div>
+  )}
+  <h1>{basics.name}</h1>
+  <p class="role">{basics.title}</p>
+
+  <ul class="contact-list">
+    <li>
+      <span class="icon">✉</span>
+      <div>
+        <p class="label">{labels.emailLabel}</p>
+        <a href={`mailto:${basics.email}`}>{basics.email}</a>
+      </div>
+    </li>
+    <li>
+      <span class="icon">📍</span>
+      <div>
+        <p class="label">{labels.locationLabel}</p>
+        <span class="value">{basics.location}</span>
+      </div>
+    </li>
+    {basics.phone && (
+      <li>
+        <span class="icon">☎</span>
+        <div>
+          <p class="label">{labels.phoneLabel}</p>
+          <span class="value">{basics.phone}</span>
+        </div>
+      </li>
+    )}
+  </ul>
+
+  <ul class="social-list">
+    {basics.links.github && (
+      <li><a href={basics.links.github} target="_blank" rel="noopener" aria-label="GitHub">GH</a></li>
+    )}
+    {basics.links.linkedin && (
+      <li><a href={basics.links.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn">in</a></li>
+    )}
+    {basics.links.website && (
+      <li><a href={basics.links.website} target="_blank" rel="noopener" aria-label="Website">WWW</a></li>
+    )}
+  </ul>
+
+  <LanguageSwitcher currentLocale={currentLocale} />
+</aside>

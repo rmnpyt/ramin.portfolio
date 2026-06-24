@@ -2,14 +2,12 @@
 const { certifications, label } = Astro.props;
 ---
 {certifications && certifications.length > 0 && (
-  <section class="section reveal" id="certifications">
-    <div class="container">
-      <h2>{label}</h2>
-      <ul class="tag-list">
-        {certifications.map((cert: any) => (
-          <li>{cert.name} — {cert.issuer}{cert.date ? ` (${cert.date})` : ""}</li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  <div class="panel-block">
+    <h2>{label}</h2>
+    <ul class="tag-list">
+      {certifications.map((cert: any) => (
+        <li>{cert.name} — {cert.issuer}{cert.date ? ` (${cert.date})` : ""}</li>
+      ))}
+    </ul>
+  </div>
 )}

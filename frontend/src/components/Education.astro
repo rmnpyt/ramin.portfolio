@@ -1,21 +1,19 @@
 ---
 const { education, label } = Astro.props;
 ---
-<section class="section reveal" id="education">
-  <div class="container">
-    <h2>{label}</h2>
-    <div class="timeline">
-      {education.map((edu: any) => (
-        <article class="entry">
-          <div class="entry-card">
-            <div class="entry-header">
-              <h3>{edu.degree}</h3>
-              <span class="dates">{edu.startDate} — {edu.endDate}</span>
-            </div>
-            <p class="location">{edu.institution}</p>
+<div class="panel-block">
+  <h2>{label}</h2>
+  <div class="timeline">
+    {education.map((edu: any) => (
+      <article class="entry">
+        <div class="entry-card">
+          <div class="entry-header">
+            <h3>{edu.degree}</h3>
+            <span class="dates">{edu.startDate} — {edu.endDate}</span>
           </div>
-        </article>
-      ))}
-    </div>
+          <p class="location">{edu.institution}</p>
+        </div>
+      </article>
+    ))}
   </div>
-</section>
+</div>

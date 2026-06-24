@@ -1,24 +1,22 @@
 ---
 const { experience, label, presentLabel } = Astro.props;
 ---
-<section class="section reveal" id="experience">
-  <div class="container">
-    <h2>{label}</h2>
-    <div class="timeline">
-      {experience.map((job: any) => (
-        <article class="entry">
-          <div class="entry-card">
-            <div class="entry-header">
-              <h3>{job.role} · {job.company}</h3>
-              <span class="dates">{job.startDate} — {job.endDate === "Present" ? presentLabel : job.endDate}</span>
-            </div>
-            <p class="location">{job.location}</p>
-            <ul>
-              {job.highlights.map((h: string) => <li>{h}</li>)}
-            </ul>
+<div class="panel-block">
+  <h2>{label}</h2>
+  <div class="timeline">
+    {experience.map((job: any) => (
+      <article class="entry">
+        <div class="entry-card">
+          <div class="entry-header">
+            <h3>{job.role} · {job.company}</h3>
+            <span class="dates">{job.startDate} — {job.endDate === "Present" ? presentLabel : job.endDate}</span>
           </div>
-        </article>
-      ))}
-    </div>
+          <p class="location">{job.location}</p>
+          <ul>
+            {job.highlights.map((h: string) => <li>{h}</li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
   </div>
-</section>
+</div>

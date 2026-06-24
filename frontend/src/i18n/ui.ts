@@ -10,6 +10,13 @@ export const dir: Record<Locale, "ltr" | "rtl"> = {
 
 export const ui = {
   en: {
+    aboutNav: "About",
+    resumeNav: "Resume",
+    portfolioNav: "Portfolio",
+    contactNav: "Contact",
+    emailLabel: "Email",
+    locationLabel: "Location",
+    phoneLabel: "Phone",
     experience: "Experience",
     education: "Education",
     skills: "Skills",
@@ -29,6 +36,13 @@ export const ui = {
     present: "Present",
   },
   fr: {
+    aboutNav: "À propos",
+    resumeNav: "CV",
+    portfolioNav: "Portfolio",
+    contactNav: "Contact",
+    emailLabel: "E-mail",
+    locationLabel: "Localisation",
+    phoneLabel: "Téléphone",
     experience: "Expérience",
     education: "Formation",
     skills: "Compétences",
@@ -48,6 +62,13 @@ export const ui = {
     present: "Présent",
   },
   fa: {
+    aboutNav: "درباره من",
+    resumeNav: "رزومه",
+    portfolioNav: "نمونه‌کارها",
+    contactNav: "تماس",
+    emailLabel: "ایمیل",
+    locationLabel: "موقعیت",
+    phoneLabel: "تلفن",
     experience: "تجربه کاری",
     education: "تحصیلات",
     skills: "مهارت‌ها",
