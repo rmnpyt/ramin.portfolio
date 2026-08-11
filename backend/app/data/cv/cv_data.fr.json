@@ -1,0 +1,115 @@
+{
+  "basics": {
+    "name": "Ramin Shirani",
+    "title": "Développeur Python",
+    "summary": "Ingénieur logiciel Python avec plus de 5 ans d'expérience dans le développement de systèmes d'automatisation, de test et de mesure, ainsi que de logiciels intégrés au matériel. Compétent en acquisition de données, communication avec des dispositifs, traitement du signal et développement d'applications industrielles, avec une expérience pratique de l'intégration de logiciels avec des systèmes RFID, des dispositifs embarqués et des équipements de test électroniques. Historique éprouvé d'amélioration des performances, d'automatisation des flux de travail opérationnels et de livraison de solutions fiables pour des environnements axés sur les données et l'ingénierie.",
+    "location": "Québec, QC, Canada",
+    "email": "solutions@raminshirani.com",
+    "phone": "+1 581-748-8885",
+    "links": {
+      "github": "https://github.com/rmnpyt",
+      "linkedin": "https://www.linkedin.com/in/raminshirani",
+      "website": "https://raminshirani.com"
+    }
+  },
+  "experience": [
+    {
+      "company": "Pasiv Financial",
+      "role": "Développeur Python",
+      "location": "Dubaï, Émirats arabes unis",
+      "startDate": "2024-08",
+      "endDate": "2026-01",
+      "highlights": [
+        "Développement d'une plateforme d'analyse de portefeuille multiplateforme permettant aux investisseurs d'évaluer et de comparer des stratégies d'investissement grâce à des calculs automatisés, des visualisations interactives et des rapports basés sur les données.",
+        "Conception d'un système de synchronisation de données configurable détectant automatiquement les mises à jour des sources de données de marché externes et actualisant les calculs, rapports et graphiques sans intervention de l'utilisateur, réduisant l'effort d'analyse manuelle.",
+        "Rétro-ingénierie d'un format de fichier propriétaire obsolète et création d'une solution d'analyse personnalisée, permettant d'importer et d'analyser des jeux de données historiques au sein de la plateforme plutôt qu'ils ne restent verrouillés dans des systèmes non maintenus.",
+        "Réduction d'environ 80 % des temps de génération de feuilles de calcul et de rapports grâce au traitement multithread, à des structures de données optimisées et à des opérations par lots, améliorant considérablement la productivité des utilisateurs sur de grands ensembles de données.",
+        "Accélération jusqu'à 10x de calculs financiers intensifs grâce à la vectorisation NumPy et à l'optimisation Numba, permettant une analyse plus rapide de portefeuilles volumineux et de données historiques.",
+        "Conception et déploiement d'un service FastAPI conteneurisé intégrant des composants Windows historiques dans un environnement Linux via Wine et ctypes, prolongeant la durée de vie de la logique métier critique tout en simplifiant le déploiement et la maintenance."
+      ]
+    },
+    {
+      "company": "Avat Sanat",
+      "role": "Développeur logiciel",
+      "location": "Ispahan, Iran",
+      "startDate": "2022-03",
+      "endDate": "2024-07",
+      "highlights": [
+        "Plateforme intelligente de gestion de stationnement : développement d'une plateforme web centralisée numérisant les opérations de stationnement en collectant et traitant les données d'entrée et de sortie des véhicules depuis des terminaux RFID déployés dans des parkings municipaux.",
+        "Construction de services backend pour recevoir et valider les données de transaction transmises par des dispositifs de terrain connectés en GSM, permettant un suivi automatisé de l'activité des véhicules et de l'utilisation du stationnement.",
+        "Conception d'outils de reporting et d'analyse offrant aux opérateurs une visibilité sur le volume de trafic, les tendances d'occupation et la génération de revenus sur plusieurs sites de stationnement.",
+        "Système de gestion et de paiement RFID pour parc d'attractions : développement d'une plateforme de gestion RFID centralisée remplaçant les billets papier et le suivi manuel des ventes par un système de paiement et de contrôle d'accès entièrement numérique.",
+        "Conception et implémentation d'un service Windows traitant en continu les transactions de terminaux RFID connectés au réseau, permettant aux opérateurs de suivre les ventes et l'utilisation des attractions en temps réel.",
+        "Mise en place d'un contrôle d'accès basé sur les rôles (RBAC), permettant aux administrateurs et opérateurs d'accéder de manière sécurisée aux informations critiques selon leurs responsabilités.",
+        "Optimisation de la réactivité du système grâce au multithreading et au traitement concurrent, prenant en charge une communication fiable avec plus de 50 dispositifs RFID en temps réel."
+      ]
+    },
+    {
+      "company": "DynoPro.ir",
+      "role": "Développeur logiciel",
+      "location": "Ispahan, Iran",
+      "startDate": "2020-01",
+      "endDate": "2022-02",
+      "highlights": [
+        "Développement d'une application de test et de mesure de bureau pour systèmes de dynamométrie, permettant aux opérateurs de surveiller et d'analyser les performances des véhicules pendant les tests.",
+        "Mise en place d'un pipeline de communication série pour l'acquisition et le traitement continus des données de capteurs depuis du matériel embarqué, permettant un suivi en temps réel du régime moteur, du couple, de la puissance, de la température, de l'humidité et du rapport air-carburant.",
+        "Création de tableaux de bord en direct avec jauges et graphiques, permettant aux opérateurs de visualiser instantanément les résultats des tests.",
+        "Implémentation d'algorithmes de lissage et de filtrage du signal, améliorant la stabilité des mesures et la fiabilité des résultats.",
+        "Conception d'un système de gestion de données portable préservant l'historique complet des clients, véhicules et tests tout en simplifiant la sauvegarde et le transfert de données."
+      ]
+    },
+    {
+      "company": "Sobhan Institutes",
+      "role": "Instructeur Python (temps partiel)",
+      "location": "Ispahan, Iran",
+      "startDate": "2019-04",
+      "endDate": "2021-10",
+      "highlights": [
+        "Développement d'une approche pédagogique pratique pour améliorer la compréhension et l'engagement des étudiants.",
+        "Refonte du programme en parcours débutant, avancé et spécialisé."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Université de technologie d'Ispahan",
+      "degree": "Maîtrise en sciences des matériaux",
+      "startDate": "2011",
+      "endDate": "2014"
+    },
+    {
+      "institution": "Université de Shahrekord",
+      "degree": "Licence en sciences des matériaux",
+      "startDate": "2006",
+      "endDate": "2010"
+    }
+  ],
+  "skills": [
+    { "category": "Développement logiciel et automatisation", "items": ["Python", "PyQt", "Multithreading", "Automatisation de processus", "Services Windows"] },
+    { "category": "Acquisition de données et communications", "items": ["Intégration RFID", "TCP/IP", "Communication série", "Traitement de données en temps réel"] },
+    { "category": "Bases de données", "items": ["PostgreSQL", "MySQL", "SQLite", "SQL"] },
+    { "category": "Traitement des données et performance", "items": ["NumPy", "Pandas", "Numba", "Optimisation des performances"] },
+    { "category": "Développement backend et API", "items": ["FastAPI", "Django", "Flask", "Django REST Framework", "REST APIs"] },
+    { "category": "Outils et environnements", "items": ["Docker", "Linux", "Git", "GitHub Actions (CI/CD)", "PyTest", "TDD"] },
+    { "category": "Autres", "items": ["Matplotlib", "PyQtGraph", "HTML", "CSS"] }
+  ],
+  "certifications": [
+    { "name": "Introduction au cloud computing", "issuer": "IBM", "date": "2025-10" },
+    { "name": "Introduction au génie logiciel", "issuer": "IBM", "date": "2025-09" },
+    { "name": "Création d'API REST avec Flask", "issuer": "LinkedIn Learning", "date": "" },
+    { "name": "Les fondamentaux du génie logiciel", "issuer": "LinkedIn Learning", "date": "" }
+  ],
+  "languages": [
+    { "name": "Anglais", "level": "Intermédiaire" },
+    { "name": "Français", "level": "Intermédiaire" },
+    { "name": "Persan", "level": "Langue maternelle ou bilingue" }
+  ],
+  "softSkills": [
+    "Travail d'équipe",
+    "Résolution de problèmes",
+    "Apprentissage rapide",
+    "Collaboration interfonctionnelle",
+    "Adaptabilité",
+    "Fiabilité"
+  ]
+}

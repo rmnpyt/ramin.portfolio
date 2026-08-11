@@ -37,6 +37,7 @@ const colorProfile = import.meta.env.PUBLIC_COLOR_PROFILE || "tealMagenta";
           <button class="tab" data-tab="resume">{labels.resumeNav}</button>
           <button class="tab" data-tab="portfolio">{labels.portfolioNav}</button>
           <button class="tab" data-tab="contact">{labels.contactNav}</button>
+          <a class="tab" href={locale === "en" ? "/blog" : `/${locale}/blog`}>{labels.blogNav}</a>
         </nav>
 
         <section class="panel active" data-panel="about">

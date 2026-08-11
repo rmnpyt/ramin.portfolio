@@ -1,0 +1,36 @@
+---
+import BlogList from "../../components/BlogList.astro";
+import "../../styles/global.css";
+import { t } from "../../i18n/ui";
+
+const labels = t("fa");
+---
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>وبلاگ — رامین شیرانی</title>
+  </head>
+  <body>
+    <div class="blog-page">
+      <header class="blog-header">
+        <a href="/fa" class="back-link">→ {labels.aboutNav}</a>
+      </header>
+      <main>
+        <BlogList
+          locale="fa"
+          label={labels.blogNav}
+          loadingLabel={labels.loading}
+          noPostsLabel="هنوز مقاله‌ای منتشر نشده."
+          loadErrorLabel={labels.loadError}
+        />
+      </main>
+    </div>
+    <style>
+      .blog-page { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+      .blog-header { margin-bottom: 2rem; }
+      .back-link { color: var(--accent); font-weight: 500; }
+    </style>
+  </body>
+</html>

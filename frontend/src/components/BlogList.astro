@@ -1,0 +1,67 @@
+---
+const { locale, label, loadingLabel, noPostsLabel, loadErrorLabel } = Astro.props;
+const apiBase = import.meta.env.PUBLIC_API_BASE_URL || "";
+const blogRoot = locale === "en" ? "/blog" : `/${locale}/blog`;
+---
+<div class="panel-block">
+  <h2>{label}</h2>
+  <div id="blog-status" class="status">{loadingLabel}</div>
+  <div id="blog-grid" class="projects-grid"></div>
+</div>
+
+<script define:vars={{ apiBase, locale, blogRoot, noPostsLabel, loadErrorLabel }}>
+  const FETCH_TIMEOUT_MS = 8000;
+
+  async function loadPosts() {
+    const statusEl = document.getElementById("blog-status");
+    const gridEl = document.getElementById("blog-grid");
+    if (!statusEl || !gridEl) return;
+
+    gridEl.innerHTML = "";
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+    try {
+      const res = await fetch(`${apiBase}/api/posts?locale=${locale}`, {
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+      const posts = await res.json();
+
+      if (posts.length === 0) {
+        statusEl.textContent = noPostsLabel;
+        return;
+      }
+
+      statusEl.remove();
+      gridEl.innerHTML = posts
+        .map(
+          (post) => `
+        <a class="project-card" href="${blogRoot}/${post.slug}">
+          <h3>${post.title}</h3>
+          <p>${post.excerpt ?? ""}</p>
+          <div class="project-meta">
+            ${post.tags.map((t) => `<span class="tag">${t}</span>`).join("")}
+            <span class="post-date">${new Date(post.created_at).toLocaleDateString(locale)}</span>
+          </div>
+        </a>`
+        )
+        .join("");
+    } catch (err) {
+      clearTimeout(timeoutId);
+      statusEl.innerHTML = "";
+      statusEl.append(document.createTextNode(loadErrorLabel + " "));
+      const retryBtn = document.createElement("button");
+      retryBtn.type = "button";
+      retryBtn.className = "retry-btn";
+      retryBtn.textContent = "↻";
+      retryBtn.addEventListener("click", loadPosts);
+      statusEl.append(retryBtn);
+      console.error(err);
+    }
+  }
+
+  loadPosts();
+</script>

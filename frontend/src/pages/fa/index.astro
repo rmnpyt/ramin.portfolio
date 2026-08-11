@@ -1,5 +1,16 @@
 ---
+export const prerender = false;
+
 import CVLayout from "../../layouts/CVLayout.astro";
-import cvData from "../../data/cv_data.fa.json";
+import fallback from "../../data/cv_data.fa.json";
+
+const apiBase = import.meta.env.API_INTERNAL_URL || "http://localhost:8000";
+let cvData: typeof fallback = fallback;
+try {
+  const res = await fetch(`${apiBase}/api/cv/fa`);
+  if (res.ok) cvData = await res.json();
+} catch {
+  // backend unavailable — use bundled seed data
+}
 ---
 <CVLayout locale="fa" cvData={cvData} />

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --sidebar: #1e293b;
+      --sidebar-text: #94a3b8;
+      --accent: #0ea5e9;
+      --accent-h: #0284c7;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --r: 8px;
+      --shadow: 0 1px 4px rgba(0,0,0,.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5;
+    }
+
+    /* ── Login ── */
+    #login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .login-card {
+      background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow);
+      padding: 2.5rem; width: 360px;
+    }
+    .login-card h1 { font-size: 1.4rem; margin-bottom: 1.5rem; }
+
+    /* ── App ── */
+    #app-screen { display: flex; min-height: 100vh; }
+
+    #sidebar {
+      width: 210px; background: var(--sidebar); color: var(--sidebar-text);
+      display: flex; flex-direction: column; padding: 1.25rem 0; flex-shrink: 0;
+    }
+    .brand { color: #fff; font-weight: 700; font-size: 1rem; padding: 0 1.25rem 1.25rem; }
+    .nav-item {
+      padding: .55rem 1.25rem; cursor: pointer;
+      border-left: 3px solid transparent; transition: .15s; user-select: none;
+    }
+    .nav-item:hover { color: #fff; background: #263348; }
+    .nav-item.active { color: #fff; border-left-color: var(--accent); background: #263348; }
+    .nav-spacer { flex: 1; }
+    .nav-danger { color: #f87171; }
+    .nav-danger:hover { background: var(--danger) !important; color: #fff !important; border-left-color: transparent !important; }
+
+    #content { flex: 1; padding: 2rem; overflow-y: auto; }
+
+    /* ── Common ── */
+    .view-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .view-header h1 { font-size: 1.4rem; flex: 1; }
+
+    .card {
+      background: var(--surface); border-radius: var(--r); box-shadow: var(--shadow);
+      padding: 1.25rem; margin-bottom: 1rem;
+    }
+
+    label {
+      display: block; font-weight: 600; font-size: .78rem; text-transform: uppercase;
+      letter-spacing: .04em; color: var(--muted); margin-bottom: .25rem;
+    }
+    input[type=text], input[type=password], select, textarea {
+      width: 100%; padding: .45rem .75rem; border: 1px solid var(--border);
+      border-radius: 6px; font-size: 14px; font-family: inherit; background: var(--surface);
+      color: var(--text); margin-bottom: 1rem;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(14,165,233,.15);
+    }
+    textarea { resize: vertical; font-family: "JetBrains Mono","Fira Code",monospace; font-size: 13px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .check-row { display: flex; align-items: center; gap: .5rem; margin-bottom: 1rem; }
+    .check-row input { width: auto; margin-bottom: 0; }
+    .check-row label { margin-bottom: 0; text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--text); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: .35rem; padding: .42rem .85rem;
+      border: none; border-radius: 6px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: .15s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-h); }
+    .btn-secondary { background: var(--border); color: var(--text); }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-danger:hover { background: #dc2626; }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-warn { background: var(--warn); color: #fff; }
+    .btn-sm { padding: .28rem .55rem; font-size: 12px; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-block; padding: .12rem .45rem; border-radius: 4px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+    }
+    .badge-pub  { background: #dcfce7; color: #166534; }
+    .badge-draft { background: #fef3c7; color: #92400e; }
+    .badge-miss { background: #f1f5f9; color: #64748b; }
+
+    /* ── Tabs ── */
+    .locale-tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 1.5rem; }
+    .tab-btn {
+      padding: .45rem 1.1rem; border: none; background: none; cursor: pointer;
+      font-size: 13px; font-weight: 700; color: var(--muted);
+      border-bottom: 2px solid transparent; margin-bottom: -2px; transition: .15s;
+    }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── Post list ── */
+    .post-card { margin-bottom: .75rem; }
+    .post-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5rem; }
+    .post-slug { font-family: monospace; font-weight: 700; font-size: .9rem; }
+    .locale-row { display: flex; align-items: center; gap: .6rem; padding: .4rem 0; border-top: 1px solid var(--border); }
+    .locale-label { font-weight: 800; width: 22px; font-size: 11px; color: var(--muted); flex-shrink: 0; }
+    .locale-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .locale-actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+    /* ── Upload ── */
+    .upload-area {
+      border: 2px dashed var(--border); border-radius: var(--r);
+      padding: 2rem; text-align: center; margin-bottom: 1.25rem; transition: .15s;
+    }
+    .upload-area.dragover { border-color: var(--accent); background: rgba(14,165,233,.04); }
+    .upload-area p { color: var(--muted); margin-bottom: .6rem; }
+
+    /* ── Messages ── */
+    .msg { padding: .65rem 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 13px; }
+    .msg-error   { background: #fee2e2; color: #991b1b; }
+    .msg-success { background: #dcfce7; color: #166534; }
+    .msg-info    { background: #e0f2fe; color: #0c4a6e; }
+
+    .spin { display: inline-block; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<!-- ════════════ LOGIN SCREEN ════════════ -->
+<div id="login-screen" hidden>
+  <div class="login-card">
+    <h1>Portfolio Admin</h1>
+    <div id="login-msg"></div>
+    <form onsubmit="doLogin(event)">
+      <label for="inp-user">Username</label>
+      <input type="text" id="inp-user" required autocomplete="username" />
+      <label for="inp-pass">Password</label>
+      <input type="password" id="inp-pass" required autocomplete="current-password" />
+      <button type="submit" class="btn btn-primary" style="width:100%" id="btn-login">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ════════════ APP SCREEN ════════════ -->
+<div id="app-screen" hidden>
+  <nav id="sidebar">
+    <div class="brand">Portfolio Admin</div>
+    <div class="nav-item active" id="nav-posts" onclick="switchView('posts')">📝 Posts</div>
+    <div class="nav-item" id="nav-cv" onclick="switchView('cv')">📄 CV</div>
+    <div class="nav-spacer"></div>
+    <div class="nav-item nav-danger" onclick="doLogout()">↩ Logout</div>
+  </nav>
+
+  <main id="content">
+
+    <!-- ── POSTS LIST VIEW ── -->
+    <div id="view-posts">
+      <div class="view-header">
+        <h1>Blog Posts</h1>
+        <button class="btn btn-primary" onclick="openNewEditor()">+ New Post</button>
+      </div>
+      <div id="msg-posts"></div>
+      <div id="posts-list"><p style="color:var(--muted)">Loading…</p></div>
+    </div>
+
+    <!-- ── POST EDITOR VIEW ── -->
+    <div id="view-editor" hidden>
+      <div class="view-header">
+        <button class="btn btn-secondary" onclick="switchView('posts')">← Posts</button>
+        <h1 id="editor-heading">New Post</h1>
+      </div>
+      <div id="msg-editor"></div>
+
+      <!-- Create form -->
+      <div id="pane-create" class="card">
+        <div class="form-row">
+          <div>
+            <label for="c-locale">Source Language</label>
+            <select id="c-locale">
+              <option value="en">English</option>
+              <option value="fr">French</option>
+              <option value="fa">Persian (Farsi)</option>
+            </select>
+          </div>
+          <div>
+            <label for="c-slug">Slug (URL path)</label>
+            <input type="text" id="c-slug" placeholder="my-first-post" />
+          </div>
+        </div>
+        <label for="c-title">Title</label>
+        <input type="text" id="c-title" oninput="autoSlug(this)" />
+        <label for="c-excerpt">Excerpt</label>
+        <textarea id="c-excerpt" rows="3"></textarea>
+        <label for="c-content">Content (Markdown)</label>
+        <textarea id="c-content" rows="18"></textarea>
+        <label for="c-tags">Tags (comma-separated)</label>
+        <input type="text" id="c-tags" placeholder="python, backend" />
+        <div class="check-row">
+          <input type="checkbox" id="c-published" />
+          <label for="c-published">Publish source immediately (translations saved as drafts for review)</label>
+        </div>
+        <button class="btn btn-primary" onclick="createPost()">Create + Auto-translate</button>
+      </div>
+
+      <!-- Edit tabs (shown after create or when editing existing) -->
+      <div id="pane-edit" hidden>
+        <div class="locale-tabs">
+          <button class="tab-btn active" id="etab-en" onclick="switchEditorTab('en')">EN</button>
+          <button class="tab-btn" id="etab-fr" onclick="switchEditorTab('fr')">FR</button>
+          <button class="tab-btn" id="etab-fa" onclick="switchEditorTab('fa')">FA</button>
+        </div>
+        <div id="epane-en"><div class="card" id="eform-en"></div></div>
+        <div id="epane-fr" hidden><div class="card" id="eform-fr"></div></div>
+        <div id="epane-fa" hidden><div class="card" id="eform-fa"></div></div>
+      </div>
+    </div>
+
+    <!-- ── CV VIEW ── -->
+    <div id="view-cv" hidden>
+      <div class="view-header">
+        <h1>CV Manager</h1>
+      </div>
+      <div id="msg-cv"></div>
+
+      <div class="card">
+        <div class="upload-area" id="cv-drop">
+          <p>Drop your CV file here or click Browse</p>
+          <p style="font-size:12px">Supported: PDF, DOCX, MD, TXT — max 10 MB</p>
+          <input type="file" id="cv-file" accept=".pdf,.docx,.md,.txt" hidden onchange="onFileSelect(this)" />
+          <button class="btn btn-secondary" onclick="document.getElementById('cv-file').click()" style="margin-right:8px">Browse</button>
+          <button class="btn btn-primary" id="btn-parse" disabled onclick="parseCv()">Upload &amp; Parse</button>
+        </div>
+        <div id="parse-status" style="font-size:13px;color:var(--muted)"></div>
+      </div>
+
+      <div class="locale-tabs">
+        <button class="tab-btn active" id="cvtab-en" onclick="switchCvTab('en')">EN</button>
+        <button class="tab-btn"        id="cvtab-fr" onclick="switchCvTab('fr')">FR</button>
+        <button class="tab-btn"        id="cvtab-fa" onclick="switchCvTab('fa')">FA</button>
+      </div>
+
+      <div id="cvpane-en" class="card">
+        <p style="font-size:12px;color:var(--muted);margin-bottom:.5rem">Edit the JSON then click Save. Structure: basics, experience, education, skills, certifications, languages, softSkills.</p>
+        <textarea id="cv-en" rows="30" spellcheck="false"></textarea>
+        <button class="btn btn-primary" onclick="saveCV('en')">Save EN</button>
+      </div>
+      <div id="cvpane-fr" class="card" hidden>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:.5rem">Edit the JSON then click Save.</p>
+        <textarea id="cv-fr" rows="30" spellcheck="false"></textarea>
+        <button class="btn btn-primary" onclick="saveCV('fr')">Save FR</button>
+      </div>
+      <div id="cvpane-fa" class="card" hidden>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:.5rem">Edit the JSON then click Save. Content is right-to-left.</p>
+        <textarea id="cv-fa" rows="30" spellcheck="false" dir="rtl"></textarea>
+        <button class="btn btn-primary" onclick="saveCV('fa')">Save FA</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+'use strict';
+
+// ── State ────────────────────────────────────────────────────────────────────
+const S = {
+  editingSlug: null,
+  editorPosts: {},   // { en: post|null, fr: post|null, fa: post|null }
+  cvFile: null,
+  slugManual: false,
+};
+
+// ── API helper ───────────────────────────────────────────────────────────────
+async function api(method, path, body) {
+  const opts = { method, credentials: 'include', headers: {} };
+  if (body !== undefined) {
+    opts.headers['Content-Type'] = 'application/json';
+    opts.body = JSON.stringify(body);
+  }
+  const res = await fetch(path, opts);
+  if (res.status === 401) { showLogin(); throw new Error('session'); }
+  return res;
+}
+
+// ── Auth ─────────────────────────────────────────────────────────────────────
+async function checkSession() {
+  try {
+    const res = await fetch('/api/admin/posts', { credentials: 'include' });
+    res.ok ? showApp() : showLogin();
+  } catch { showLogin(); }
+}
+
+async function doLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btn-login');
+  btn.disabled = true; btn.textContent = 'Signing in…';
+  clearMsg('login-msg');
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: document.getElementById('inp-user').value, password: document.getElementById('inp-pass').value }),
+    });
+    if (res.ok) { showApp(); }
+    else { const d = await res.json().catch(()=>({})); showMsg('login-msg','error', d.detail||'Login failed'); }
+  } catch { showMsg('login-msg','error','Network error'); }
+  finally { btn.disabled = false; btn.textContent = 'Sign In'; }
+}
+
+async function doLogout() {
+  await fetch('/api/admin/logout', { method:'POST', credentials:'include' }).catch(()=>{});
+  showLogin();
+}
+
+function showLogin() {
+  document.getElementById('login-screen').hidden = false;
+  document.getElementById('app-screen').hidden = true;
+}
+
+function showApp() {
+  document.getElementById('login-screen').hidden = true;
+  document.getElementById('app-screen').hidden = false;
+  switchView('posts');
+}
+
+// ── View routing ─────────────────────────────────────────────────────────────
+function switchView(view) {
+  ['posts','editor','cv'].forEach(v => document.getElementById('view-'+v).hidden = v !== view);
+  ['posts','cv'].forEach(v => document.getElementById('nav-'+v)?.classList.toggle('active', v === view));
+  if (view === 'posts') loadPosts();
+  if (view === 'cv')    loadCurrentCV();
+}
+
+// ── Posts list ───────────────────────────────────────────────────────────────
+async function loadPosts() {
+  const el = document.getElementById('posts-list');
+  el.innerHTML = '<p style="color:var(--muted)">Loading…</p>';
+  try {
+    const res = await api('GET', '/api/admin/posts');
+    if (!res.ok) { el.innerHTML = '<p style="color:var(--danger)">Failed to load posts.</p>'; return; }
+    renderPosts(await res.json(), el);
+  } catch(err) { if (err.message !== 'session') el.innerHTML = `<p style="color:var(--danger)">${esc(err.message)}</p>`; }
+}
+
+function renderPosts(posts, container) {
+  if (!posts.length) { container.innerHTML = '<p style="color:var(--muted)">No posts yet. Create your first one!</p>'; return; }
+  const bySlug = {};
+  posts.forEach(p => { (bySlug[p.slug] = bySlug[p.slug]||{})[p.locale] = p; });
+
+  container.innerHTML = Object.entries(bySlug).map(([slug, locs]) => {
+    const rows = ['en','fr','fa'].map(loc => {
+      const p = locs[loc];
+      if (!p) return `<div class="locale-row"><span class="locale-label">${loc.toUpperCase()}</span><span class="locale-title" style="color:var(--muted);font-style:italic">—</span><span class="badge badge-miss">missing</span></div>`;
+      const badge = p.published ? '<span class="badge badge-pub">published</span>' : '<span class="badge badge-draft">draft</span>';
+      const pubBtn = p.published
+        ? `<button class="btn btn-warn btn-sm" onclick="togglePublish('${slug}',true)">Unpublish</button>`
+        : `<button class="btn btn-success btn-sm" onclick="togglePublish('${slug}',false)">Publish</button>`;
+      return `<div class="locale-row">
+        <span class="locale-label">${loc.toUpperCase()}</span>
+        <span class="locale-title">${esc(p.title)}</span>
+        ${badge}
+        <div class="locale-actions">
+          <button class="btn btn-secondary btn-sm" onclick="openEditEditor('${slug}')">Edit</button>
+          ${pubBtn}
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="card post-card">
+      <div class="post-card-header">
+        <span class="post-slug">${esc(slug)}</span>
+        <button class="btn btn-danger btn-sm" onclick="deletePost('${slug}')">Delete All</button>
+      </div>${rows}</div>`;
+  }).join('');
+}
+
+async function deletePost(slug) {
+  if (!confirm(`Delete ALL locale versions of "${slug}"?\nThis cannot be undone.`)) return;
+  try {
+    const res = await api('DELETE', `/api/admin/posts/${slug}`);
+    if (res.ok || res.status === 204) loadPosts();
+    else { const d = await res.json().catch(()=>({})); alert(d.detail||'Delete failed'); }
+  } catch {}
+}
+
+async function togglePublish(slug, currentlyPub) {
+  try {
+    const res = await api('PATCH', `/api/admin/posts/${slug}/publish?published=${!currentlyPub}`);
+    if (res.ok) loadPosts();
+    else { const d = await res.json().catch(()=>({})); alert(d.detail||'Update failed'); }
+  } catch {}
+}
+
+// ── Post editor — create ──────────────────────────────────────────────────────
+function openNewEditor() {
+  S.editingSlug = null; S.editorPosts = {}; S.slugManual = false;
+  document.getElementById('editor-heading').textContent = 'New Post';
+  document.getElementById('pane-create').hidden = false;
+  document.getElementById('pane-edit').hidden = true;
+  ['c-slug','c-title','c-excerpt','c-content','c-tags'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('c-published').checked = false;
+  document.getElementById('c-locale').value = 'en';
+  clearMsg('msg-editor');
+  switchView('editor');
+}
+
+function autoSlug(input) {
+  if (S.slugManual) return;
+  document.getElementById('c-slug').value = input.value.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+
+async function createPost() {
+  const slug  = document.getElementById('c-slug').value.trim();
+  const title = document.getElementById('c-title').value.trim();
+  if (!slug || !title) { showMsg('msg-editor','error','Slug and Title are required.'); return; }
+
+  const body = {
+    slug, locale: document.getElementById('c-locale').value, title,
+    excerpt: document.getElementById('c-excerpt').value.trim(),
+    content: document.getElementById('c-content').value,
+    tags: document.getElementById('c-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    published: document.getElementById('c-published').checked,
+  };
+
+  showMsg('msg-editor','info','<span class="spin">⟳</span> Creating and translating… this may take up to 30 seconds.');
+  try {
+    const res = await api('POST', '/api/admin/posts', body);
+    const data = await res.json();
+    if (!res.ok) { showMsg('msg-editor','error', data.detail||'Create failed'); return; }
+
+    const warn = data.translation_errors?.length ? ` Warnings: ${data.translation_errors.join('; ')}` : '';
+    showMsg('msg-editor','success', `Post created and translated.${warn} Review each locale tab below.`);
+    S.editingSlug = slug;
+    S.editorPosts = { [body.locale]: data.source };
+    data.translations.forEach(p => { S.editorPosts[p.locale] = p; });
+    document.getElementById('pane-create').hidden = true;
+    document.getElementById('editor-heading').textContent = `Edit: ${slug}`;
+    populateEditTabs(slug, S.editorPosts);
+  } catch {}
+}
+
+// ── Post editor — edit ────────────────────────────────────────────────────────
+async function openEditEditor(slug) {
+  S.editingSlug = slug;
+  document.getElementById('editor-heading').textContent = `Edit: ${slug}`;
+  document.getElementById('pane-create').hidden = true;
+  clearMsg('msg-editor');
+  showMsg('msg-editor','info','Loading…');
+  try {
+    const res = await api('GET', '/api/admin/posts');
+    const all  = await res.json();
+    const byLocale = {};
+    all.filter(p => p.slug === slug).forEach(p => { byLocale[p.locale] = p; });
+    S.editorPosts = byLocale;
+    clearMsg('msg-editor');
+    populateEditTabs(slug, byLocale);
+    switchView('editor');
+  } catch {}
+}
+
+function populateEditTabs(slug, byLocale) {
+  document.getElementById('pane-edit').hidden = false;
+  ['en','fr','fa'].forEach(loc => {
+    document.getElementById('eform-'+loc).innerHTML = buildLocaleForm(loc, byLocale[loc]||null, slug);
+  });
+  switchEditorTab('en');
+}
+
+function buildLocaleForm(loc, post, slug) {
+  const dir   = loc === 'fa' ? 'dir="rtl"' : '';
+  const tags  = post ? (Array.isArray(post.tags) ? post.tags.join(', ') : '') : '';
+  const isNew = !post;
+  const label = { en:'English', fr:'French', fa:'Persian (Farsi)' }[loc];
+  return `
+    ${isNew ? `<p style="color:var(--muted);margin-bottom:1rem;font-size:13px">This locale doesn't exist yet — fill in the content below to create it.</p>` : ''}
+    <label for="et-${loc}">Title</label>
+    <input type="text" id="et-${loc}" value="${esc(post?.title||'')}" ${dir} />
+    <label for="ee-${loc}">Excerpt</label>
+    <textarea id="ee-${loc}" rows="3" ${dir}>${esc(post?.excerpt||'')}</textarea>
+    <label for="ec-${loc}">Content (Markdown)</label>
+    <textarea id="ec-${loc}" rows="18" ${dir}>${esc(post?.content||'')}</textarea>
+    <label for="eg-${loc}">Tags (comma-separated)</label>
+    <input type="text" id="eg-${loc}" value="${esc(tags)}" />
+    <div class="check-row">
+      <input type="checkbox" id="ep-${loc}" ${post?.published?'checked':''} />
+      <label for="ep-${loc}">Published</label>
+    </div>
+    <button class="btn btn-primary" onclick="saveLocale('${slug}','${loc}',${isNew})">${isNew?'Create':'Save'} ${label}</button>`;
+}
+
+async function saveLocale(slug, loc, isCreate) {
+  const title = document.getElementById(`et-${loc}`).value.trim();
+  if (!title) { alert('Title is required'); return; }
+  const body = {
+    slug, locale: loc, title,
+    excerpt:   document.getElementById(`ee-${loc}`).value.trim(),
+    content:   document.getElementById(`ec-${loc}`).value,
+    tags:      document.getElementById(`eg-${loc}`).value.split(',').map(t=>t.trim()).filter(Boolean),
+    published: document.getElementById(`ep-${loc}`).checked,
+  };
+  try {
+    const res = isCreate
+      ? await api('POST', '/api/admin/posts', body)
+      : await api('PUT',  `/api/admin/posts/${slug}/${loc}`, body);
+    const data = await res.json().catch(()=>({}));
+    if (res.ok || res.status === 201) {
+      showMsg('msg-editor','success', `${loc.toUpperCase()} saved.`);
+      await openEditEditor(slug);
+    } else {
+      showMsg('msg-editor','error', data.detail||'Save failed');
+    }
+  } catch {}
+}
+
+function switchEditorTab(loc) {
+  ['en','fr','fa'].forEach(l => {
+    document.getElementById('epane-'+l).hidden  = l !== loc;
+    document.getElementById('etab-'+l).classList.toggle('active', l === loc);
+  });
+}
+
+// ── CV manager ───────────────────────────────────────────────────────────────
+async function loadCurrentCV() {
+  for (const loc of ['en','fr','fa']) {
+    try {
+      const res = await api('GET', `/api/admin/cv/${loc}`);
+      if (res.ok) document.getElementById(`cv-${loc}`).value = JSON.stringify(await res.json(), null, 2);
+    } catch {}
+  }
+}
+
+function onFileSelect(input) {
+  S.cvFile = input.files[0] || null;
+  document.getElementById('btn-parse').disabled = !S.cvFile;
+  document.getElementById('parse-status').textContent = S.cvFile ? `Selected: ${S.cvFile.name}` : '';
+}
+
+async function parseCv() {
+  if (!S.cvFile) return;
+  const btn    = document.getElementById('btn-parse');
+  const status = document.getElementById('parse-status');
+  btn.disabled = true;
+  status.innerHTML = '<span class="spin">⟳</span> Parsing and translating… up to 30 s.';
+  clearMsg('msg-cv');
+
+  const form = new FormData();
+  form.append('file', S.cvFile);
+  try {
+    const res = await fetch('/api/admin/cv/upload', { method:'POST', credentials:'include', body: form });
+    if (res.status === 401) { showLogin(); return; }
+    const data = await res.json();
+    if (!res.ok) { showMsg('msg-cv','error', data.detail||'Parse failed'); return; }
+    ['en','fr','fa'].forEach(loc => {
+      if (data[loc]) document.getElementById(`cv-${loc}`).value = JSON.stringify(data[loc], null, 2);
+    });
+    const warn = data.translation_errors?.length ? ` Warnings: ${data.translation_errors.join('; ')}` : '';
+    showMsg('msg-cv','success', `CV parsed and translated.${warn} Review each tab then click Save.`);
+  } catch (err) { showMsg('msg-cv','error','Network error: '+err.message); }
+  finally { btn.disabled = false; status.textContent = ''; }
+}
+
+async function saveCV(loc) {
+  let data;
+  try { data = JSON.parse(document.getElementById(`cv-${loc}`).value); }
+  catch { showMsg('msg-cv','error',`Invalid JSON in the ${loc.toUpperCase()} tab — fix syntax errors first.`); return; }
+  try {
+    const res = await api('POST', `/api/admin/cv/${loc}/save`, data);
+    if (res.ok) showMsg('msg-cv','success', `${loc.toUpperCase()} CV saved successfully.`);
+    else { const d = await res.json().catch(()=>({})); showMsg('msg-cv','error', d.detail||'Save failed'); }
+  } catch {}
+}
+
+function switchCvTab(loc) {
+  ['en','fr','fa'].forEach(l => {
+    document.getElementById('cvpane-'+l).hidden = l !== loc;
+    document.getElementById('cvtab-'+l).classList.toggle('active', l === loc);
+  });
+}
+
+// ── Util ─────────────────────────────────────────────────────────────────────
+function esc(s) { return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showMsg(id, type, html) { document.getElementById(id).innerHTML = `<div class="msg msg-${type}">${html}</div>`; }
+function clearMsg(id) { document.getElementById(id).innerHTML = ''; }
+
+// ── Slug manual tracking ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('c-slug').addEventListener('input', function() { S.slugManual = !!this.value; });
+
+  // CV drag-and-drop
+  const zone = document.getElementById('cv-drop');
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault(); zone.classList.remove('dragover');
+    const f = e.dataTransfer.files[0];
+    if (!f) return;
+    S.cvFile = f;
+    document.getElementById('btn-parse').disabled = false;
+    document.getElementById('parse-status').textContent = `Selected: ${f.name}`;
+  });
+});
+
+checkSession();
+</script>
+</body>
+</html>

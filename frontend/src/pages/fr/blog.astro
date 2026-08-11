@@ -1,0 +1,36 @@
+---
+import BlogList from "../../components/BlogList.astro";
+import "../../styles/global.css";
+import { t } from "../../i18n/ui";
+
+const labels = t("fr");
+---
+<!doctype html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Ramin Shirani</title>
+  </head>
+  <body>
+    <div class="blog-page">
+      <header class="blog-header">
+        <a href="/fr" class="back-link">← {labels.aboutNav}</a>
+      </header>
+      <main>
+        <BlogList
+          locale="fr"
+          label={labels.blogNav}
+          loadingLabel={labels.loading}
+          noPostsLabel="Aucun article pour l'instant."
+          loadErrorLabel={labels.loadError}
+        />
+      </main>
+    </div>
+    <style>
+      .blog-page { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+      .blog-header { margin-bottom: 2rem; }
+      .back-link { color: var(--accent); font-weight: 500; }
+    </style>
+  </body>
+</html>
