@@ -5,17 +5,43 @@ services:
       - ./backend/.env
     expose:
       - "8000"
+    volumes:
+      - portfolio_data:/data
     restart: unless-stopped
+    networks:
+      - internal
 
   frontend:
     build:
       context: ./frontend
       args:
         PUBLIC_API_BASE_URL: ""
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - "80:80"
+    expose:
+      - "4321"
+    environment:
+      - API_INTERNAL_URL=http://backend:8000
     depends_on:
       - backend
     restart: unless-stopped
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+    networks:
+      - internal
+
+volumes:
+  portfolio_data:
+
+networks:
+  internal:
+    driver: bridge
