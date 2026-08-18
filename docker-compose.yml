@@ -8,10 +8,8 @@ services:
     volumes:
       - portfolio_data:/data
     restart: unless-stopped
-    networks:
-      - internal
 
-  frontend:
+  astro:
     build:
       context: ./frontend
       args:
@@ -23,25 +21,33 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
-    networks:
-      - internal
 
-  nginx:
+  frontend:
     image: nginx:1.27-alpine
-    ports:
-      - "80:80"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/templates/default.conf.template:ro
+    environment:
+      - DOMAIN=${DOMAIN}
+    expose:
+      - "80"
     depends_on:
       - backend
-      - frontend
+      - astro
     restart: unless-stopped
     networks:
-      - internal
+      - default
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.portfolio.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)
+      - traefik.http.routers.portfolio.entrypoints=websecure
+      - traefik.http.routers.portfolio.tls.certresolver=letsencrypt
+      - traefik.http.services.portfolio.loadbalancer.server.port=80
 
 volumes:
   portfolio_data:
 
 networks:
-  internal:
-    driver: bridge
+  proxy:
+    external: true
