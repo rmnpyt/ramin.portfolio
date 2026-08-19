@@ -4,7 +4,7 @@ export const prerender = false;
 import CVLayout from "../layouts/CVLayout.astro";
 import fallback from "../data/cv_data.en.json";
 
-const apiBase = import.meta.env.API_INTERNAL_URL || "http://localhost:8000";
+const apiBase = process.env.API_INTERNAL_URL || "http://localhost:8000";
 let cvData: typeof fallback = fallback;
 try {
   const res = await fetch(`${apiBase}/api/cv/en`);
