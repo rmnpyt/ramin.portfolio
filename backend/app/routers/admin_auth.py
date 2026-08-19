@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta, timezone
 
+import bcrypt
 from fastapi import APIRouter, HTTPException, Response, status
 from jose import jwt
-from passlib.context import CryptContext
 from pydantic import BaseModel
 
 from app.config import (
@@ -17,8 +17,6 @@ from app.dependencies import JWT_ALGORITHM
 
 router = APIRouter()
 
-_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 
 class LoginRequest(BaseModel):
     username: str
@@ -27,7 +25,7 @@ class LoginRequest(BaseModel):
 
 def _verify_password(plain: str) -> bool:
     if ADMIN_PASSWORD_HASH:
-        return _pwd_context.verify(plain, ADMIN_PASSWORD_HASH)
+        return bcrypt.checkpw(plain.encode(), ADMIN_PASSWORD_HASH.encode())
     if ADMIN_PASSWORD:
         return plain == ADMIN_PASSWORD
     return False
